@@ -6,7 +6,7 @@
 
 .lein-*
 *.gcode
-*.scad
+#*.scad
 /target
 .idea/
 .DS_Store
@@ -14,10 +14,10 @@
 debug_*
 */__pycache__/*
 *~$*
-things/
+#things/
 .DS_Store
 things/*.scad
 things/*.step
-things/*.stl
+#things/*.stl
 *.3mf
 *.dxf
