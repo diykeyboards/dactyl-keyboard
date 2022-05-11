@@ -10,8 +10,12 @@ r2d = 180 / pi
 
 shape_config = {
 
-    'ENGINE': 'solid',  # 'solid' = solid python / OpenSCAD, 'cadquery' = cadquery / OpenCascade
-    # 'ENGINE': 'cadquery',  # 'solid' = solid python / OpenSCAD, 'cadquery' = cadquery / OpenCascade
+    #Emable Test Models
+    #'test':  "yes",
+    'test':  "no",
+
+    # 'ENGINE': 'solid',  # 'solid' = solid python / OpenSCAD, 'cadquery' = cadquery / OpenCascade
+    'ENGINE': 'cadquery',  # 'solid' = solid python / OpenSCAD, 'cadquery' = cadquery / OpenCascade
 
 
     ######################
@@ -19,9 +23,9 @@ shape_config = {
     ######################
 
     'save_dir': '.',
-    'config_name':  "DM",
+    'config_name':  "DMF_5x6HS_OLED",
 
-    'show_caps': 'MX',
+    'show_caps': False,
     'show_pcbs': False, #only runs if caps are shown, easist place to initially inject geometry
 
     'nrows':  5, #5,  # key rows
@@ -39,7 +43,7 @@ shape_config = {
     'column_style_gt5':  "orthographic",
     'column_style':  "standard",  # options include :standard, :orthographic, and :fixed
     'reduced_inner_cols': 2,  #currently supports 0 or 2 due to thumb cluster attachment
-    'reduced_outer_cols': 0,
+    'reduced_outer_cols': 2,
 
 
     'thumb_offsets':  [6, -3, 7],
@@ -49,7 +53,7 @@ shape_config = {
 
 
     'extra_width': 2.5,  # extra space between the base of keys# original= 2
-    'extra_height': 1.0,  # original= 0.5
+    'extra_height': 0.8,  # original= 0.5
 
 
     'web_thickness': 4.0 + 1.1,
@@ -236,7 +240,7 @@ shape_config = {
     # 'HS_UNDERCUT' = hot swap underside with undercut. Does not generate properly.  Hot swap step needs to be modified.
     # 'HS_NOTCH' = hot swap underside with notch.  Does not generate properly.  Hot swap step needs to be modified.
     # 'plate_style':  'NUB',
-    'plate_style': 'NOTCH',
+    'plate_style': 'HS_NOTCH',
 
     'hole_keyswitch_height':  14.0,
     'hole_keyswitch_width':  14.0,
@@ -251,11 +255,11 @@ shape_config = {
     'sa_profile_key_height':  12.7,
     'sa_length': 18.5,
     'sa_double_length': 37.5,
-    'plate_thickness':  4 + 1.1,
+    'plate_thickness':  5,
 
     'plate_rim': 1.5 + 0.5,
     # Undercut style dimensions
-    'clip_thickness':  1.1,
+    'clip_thickness':  1.4,
     'clip_undercut':  1.0,
     'undercut_transition':  .2,  # NOT FUNCTIONAL WITH OPENSCAD, ONLY WORKS WITH CADQUERY
 
@@ -355,13 +359,13 @@ shape_config = {
 
     'screws_offset': 'INSIDE', # 'OUTSIDE', 'INSIDE', 'ORIGINAL'
 
-    'screw_insert_height': 3.8,
+    'screw_insert_height': 4.5,
 
-    # 'screw_insert_bottom_radius': 5.31 / 2,  #Designed for inserts
-    # 'screw_insert_top_radius': 5.1 / 2,  #Designed for inserts
+    'screw_insert_bottom_radius': 4.8 / 2,  #Designed for inserts
+    'screw_insert_top_radius': 4.6 / 2,  #Designed for inserts
 
-    'screw_insert_bottom_radius': 2.5 / 2,  # Designed for self tapping
-    'screw_insert_top_radius': 2.5 / 2,  # Designed for self tapping
+    # 'screw_insert_bottom_radius': 2.5 / 2,  # Designed for self tapping
+    # 'screw_insert_top_radius': 2.5 / 2,  # Designed for self tapping
 
     'screw_insert_outer_radius': 4.25,  # Common to keep interface to base
 
@@ -418,22 +422,33 @@ shape_config = {
     # COMMON DIMENSION
     'screw_hole_diameter': 3,
     # USED FOR CADQUERY ONLY
-    'base_thickness': 3.0, # thickness in the middle of the plate
+    'base_thickness': 2.0, # thickness in the middle of the plate
     'base_offset': 3.0, # Both start flat/flush on the bottom.  This offsets the base up (if positive)
-    'base_rim_thickness': 5.0,  # thickness on the outer frame with screws
-    'screw_cbore_diameter': 6.0,
-    'screw_cbore_depth': 2.5,
+    'base_rim_thickness': 3.0,  # thickness on the outer frame with screws
+    'screw_cbore_diameter': 5.8,
+    'screw_cbore_depth': 2.0,
+    'screw_cbore_style':  'COUNTERSINK',# 'COUNTERSINK' (conical) or 'COUNTERBORE' (cylindrical)
+
+    ###################################
+    ## Bottom Plate Logo
+    ###################################
+    # COMMON DIMENSION
+    'logo_file':  'diyk_logo', #Logo STEP file name. Logo should be extruded 1mm high. Origin should be in center. Leave empty for none.
+    'logo_xpos':  -50,
+    'logo_ypos':  5,
+    'logo_plates':  'RIGHT', #LEFT, RIGHT, or BOTH
+
 
     # Offset is from the top inner corner of the top inner key.
 
     ###################################
     ## HOLES ON PLATE FOR PCB MOUNT
     ###################################
-    'plate_holes':  True,
+    'plate_holes':  False,
     'plate_holes_xy_offset': (0.0, 0.0),
     'plate_holes_width': 14.3,
     'plate_holes_height': 14.3,
-    'plate_holes_diameter': 1.6,
+    'plate_holes_diameter': 1.7,
     'plate_holes_depth': 20.0,
 
     ###################################

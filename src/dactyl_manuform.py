@@ -76,7 +76,7 @@ else:
 ####################################################
 
 
-debug_exports = False 
+debug_exports = False
 debug_trace = False
 
 def debugprint(info):
@@ -114,8 +114,8 @@ else:
 
 if 'HS_' in plate_style:
     symmetry = "asymmetric"
-    plate_file = path.join(parts_path, r"hot_swap_plate")
-    plate_offset = 0.0
+    plate_file = path.join(parts_path, r"diyk_hot_swap_plate")
+    plate_offset = -1.0
 
 if (trackball_in_wall or ('TRACKBALL' in thumb_style)) and not ball_side == 'both':
     symmetry = "asymmetric"
@@ -225,13 +225,6 @@ def single_plate(cylinder_segments=100, side="right"):
                 keyswitch_height + 2 * clip_undercut,
                 mount_thickness
             )
-            undercut = union([undercut,
-                box(
-                    keyswitch_width + 2 * clip_undercut,
-                    notch_width,
-                    mount_thickness
-                )
-            ])
 
         undercut = translate(undercut, (0.0, 0.0, -clip_thickness + mount_thickness / 2.0))
 
@@ -243,6 +236,7 @@ def single_plate(cylinder_segments=100, side="right"):
     if plate_file is not None:
         socket = import_file(plate_file)
         socket = translate(socket, [0, 0, plate_thickness + plate_offset])
+        socket = rotate(socket, [0, 0, 180])
         plate = union([plate, socket])
 
 
@@ -935,7 +929,7 @@ def thumb_connectors(side='right', style_override=None):
         return minidox_thumb_connectors()
     elif _thumb_style == "CARBONFET":
         return carbonfet_thumb_connectors()
-      
+
     elif "TRACKBALL" in _thumb_style:
         if (side == ball_side or ball_side == 'both'):
             if _thumb_style == "TRACKBALL_ORBYL":
@@ -944,7 +938,7 @@ def thumb_connectors(side='right', style_override=None):
                 return tbcj_thumb_connectors()
         else:
             return thumb_connectors(side, style_override=other_thumb)
-          
+
     else:
         return default_thumb_connectors()
 
@@ -2062,7 +2056,7 @@ def tbcj_thumb_layout(shape):
 
 #def oct_corner(i, radius, shape):
 #    i = (i+1)%8
-#    
+#
 #    points_x = [1, 2, 2, 1, -1, -2, -2, -1]
 #    points_y = [2, 1, -1, -2, -2, -1, 1, 2]
 #
@@ -2075,7 +2069,7 @@ def oct_corner(i, diameter, shape):
 
     r = radius
     m = radius * math.tan(math.pi / 8)
-    
+
     points_x = [m, r, r, m, -m, -r, -r, -m]
     points_y = [r, m, -m, -r, -r, -m, m, r]
 
@@ -2653,7 +2647,6 @@ def thumb_connection(side='right', style_override=None, skeleton=False):
         return minidox_thumb_connection(side=side, skeleton=skeleton)
     elif _thumb_style == "CARBONFET":
         return carbonfet_thumb_connection(side=side, skeleton=skeleton)
-      
     elif "TRACKBALL" in _thumb_style:
         if (side == ball_side or ball_side == 'both'):
             if _thumb_style == "TRACKBALL_ORBYL":
@@ -3946,7 +3939,7 @@ def screw_insert_all_shapes(bottom_radius, top_radius, height, offset=0, side='r
         translate(screw_insert(3, lastrow, bottom_radius, top_radius, height, side=side), (0, 0, offset)),
         translate(screw_insert(3, 0, bottom_radius, top_radius, height, side=side), (0,0, offset)),
         translate(screw_insert(lastcol, 0, bottom_radius, top_radius, height, side=side), (0, 0, offset)),
-        translate(screw_insert(lastcol, cornerrow, bottom_radius, top_radius, height, side=side), (0, 0, offset)),
+        translate(screw_insert(lastcol, cornerrow, bottom_radius, top_radius, height, side=side), (0, 5, offset)),
         # translate(screw_insert_thumb(bottom_radius, top_radius, height), (0, 0, offset)),
     )
 
@@ -4209,8 +4202,9 @@ def baseplate(wedge_angle=None, side='right'):
         thumb_wall_shape = union([thumb_wall_shape, *thumb_screw_insert_outers(side=side)])
         thumb_connector_shape = thumb_connectors(side=side)
         thumb_connection_shape = thumb_connection(side=side, skeleton=skeletal)
-        thumb_section = union([thumb_shape, thumb_connector_shape, thumb_wall_shape, thumb_connection_shape])
-        thumb_section = difference(thumb_section, [union(thumb_screw_insert_holes(side=side))])
+        thumb_section = union([thumb_wall_shape, thumb_connection_shape])
+        #thumb_section = union([thumb_shape, thumb_connector_shape, thumb_wall_shape, thumb_connection_shape])
+        #thumb_section = difference(thumb_section, [union(thumb_screw_insert_holes(side=side))])
 
         shape = union([
             case_walls(side=side),
@@ -4276,15 +4270,14 @@ def baseplate(wedge_angle=None, side='right'):
                 loc = hole.Center()
                 hole_shapes.append(
                     translate(
-                        cylinder(screw_cbore_diameter/2.0, screw_cbore_depth),
+                        cone(screw_cbore_diameter/2.0, screw_hole_diameter/2.0, screw_cbore_depth),
+                        #cylinder(screw_cbore_diameter/2.0, screw_cbore_depth),
                         (loc.x, loc.y, 0)
-                        # (loc.x, loc.y, screw_cbore_depth/2)
                     )
                 )
             shape = difference(shape, hole_shapes)
             shape = translate(shape, (0, 0, -base_rim_thickness))
             shape = union([shape, inner_shape])
-
 
         return shape
     else:
@@ -4305,33 +4298,45 @@ def baseplate(wedge_angle=None, side='right'):
 
         return sl.projection(cut=True)(shape)
 
+
+#Plate Logos
+base = baseplate(side='right')
+base_l = mirror(baseplate(side='left'), 'YZ')
+
+logo_path = path.join(parts_path, logo_file)
+if logo_path is not None:
+    logo = import_file(logo_path)
+    logo = mirror(logo, 'YZ')
+
+    if logo_plates == r"RIGHT" or logo_plates == r"BOTH":
+        logo_r = translate(logo, (logo_xpos, logo_ypos, -base_rim_thickness-0.2))
+        base = difference(base, [logo_r])
+
+    if logo_plates == r"LEFT" or logo_plates == r"BOTH":
+        logo_l = translate(logo, (-logo_xpos, logo_ypos, -base_rim_thickness-0.2))
+        base_l = difference(base_l, [logo_l])
+
 def run():
 
     mod_r, tmb_r = model_side(side="right")
-    export_file(shape=mod_r, fname=path.join(save_path, config_name + r"_right"))
-    export_file(shape=tmb_r, fname=path.join(save_path, config_name + r"_thumb_right"))
+    export_file(shape=mod_r, fname=path.join(save_path, config_name + r"_Right_Top"))
 
-    #base = baseplate(mod_r, tmb_r, side='right')
-    base = baseplate(side='right')
-    export_file(shape=base, fname=path.join(save_path, config_name + r"_right_plate"))
-    export_dxf(shape=base, fname=path.join(save_path, config_name + r"_right_plate"))
+    export_file(shape=base, fname=path.join(save_path, config_name + r"_Right_Plate"))
+    export_dxf(shape=base, fname=path.join(save_path, config_name + r"_Right_Plate"))
 
     if symmetry == "asymmetric":
         mod_l, tmb_l = model_side(side="left")
-        export_file(shape=mod_l, fname=path.join(save_path, config_name + r"_left"))
-        export_file(shape=tmb_l, fname=path.join(save_path, config_name + r"_thumb_left"))
+        export_file(shape=mod_l, fname=path.join(save_path, config_name + r"_Left_Top"))
 
-        #base_l = mirror(baseplate(mod_l, tmb_l, side='left'), 'YZ')
-        base_l = mirror(baseplate(side='left'), 'YZ')
-        export_file(shape=base_l, fname=path.join(save_path, config_name + r"_left_plate"))
-        export_dxf(shape=base_l, fname=path.join(save_path, config_name + r"_left_plate"))
+        export_file(shape=base_l, fname=path.join(save_path, config_name + r"_Left_Plate"))
+        export_dxf(shape=base_l, fname=path.join(save_path, config_name + r"_Left_Plate"))
 
     else:
-        export_file(shape=mirror(mod_r, 'YZ'), fname=path.join(save_path, config_name + r"_left"))
+        export_file(shape=mirror(mod_r, 'YZ'), fname=path.join(save_path, config_name + r"_Left_Top"))
 
         lbase = mirror(base, 'YZ')
-        export_file(shape=lbase, fname=path.join(save_path, config_name + r"_left_plate"))
-        export_dxf(shape=lbase, fname=path.join(save_path, config_name + r"_left_plate"))
+        export_file(shape=lbase, fname=path.join(save_path, config_name + r"_Left_Plate"))
+        export_dxf(shape=lbase, fname=path.join(save_path, config_name + r"_Left_Plate"))
 
 
 
