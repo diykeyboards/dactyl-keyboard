@@ -8,6 +8,7 @@ dependencies:
   - cadquery=2
   - pip
   - numpy
+  - nptyping=1.4.4
   - scipy
   - pip:
     - solidpython

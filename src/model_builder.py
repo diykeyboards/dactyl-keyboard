@@ -14,31 +14,32 @@ config_options = [
     },
     {
         'name': '{}x{}', 'vars': ['nrows', 'ncols'],
-        'vals':[(4, 5), (5, 6)],
-        # 'vals': [(4, 5), (4, 6), (5, 6), (6, 6)],
+        # 'vals':[(4, 5), (5, 6)],
+        'vals': [(4, 5), (4, 6), (5, 6), (6, 6)],
     },
     {
-        'name': '{}PLT', 'vars': ['plate_style'],
+        'name': '{}', 'vars': ['plate_style'],
         'vals': ['NOTCH', 'HS_NOTCH'],
+        'val_names': ['MX', 'HOTSWAP'],
         # 'vals': ['NUB', 'NOTCH', 'HS_NUB', 'HS_NOTCH'],
     },
     {
-        'name': '{}TMB', 'vars': ['thumb_style'],
-        'vals': ['DEFAULT', 'MINIDOX', 'TRACKBALL_ORBISSYL'],
-        'val_names': ['DEF', 'MDOX', 'ORBY']
-        # 'vals': ['DEFAULT', 'MINI', 'CARBONFET', 'MINIDOX'],
+        'name': '{}THUMB', 'vars': ['thumb_style'],
+        'vals': ['DEFAULT', 'MINI', 'CARBONFET'],
+        'val_names': ['DEF-', 'MINI-', 'CF-'],
+        # 'vals': ['DEFAULT', 'MINI', 'CARBONFET', 'MINIDOX''TRACKBALL_ORBISSYL',],
         # 'val_names': ['DEF', 'MINI', 'CF', 'MDOX']
     },
     {
         'name': '{}', 'vars': ['oled_mount_type'],
         'vals': ['CLIP', 'NONE'],
-        'val_names': ['OLED', 'NOLED']
+        'val_names': ['OLED', 'BASIC'],
     },
-    {
-        'name': '{}CTRL', 'vars': ['controller_mount_type'],
-        'vals': ['EXTERNAL', 'RJ9_USB_WALL'],
-        'val_names': ['EXT', 'DEF'],
-    },
+    #{
+    #    'name': '{}CTRL', 'vars': ['controller_mount_type'],
+    #    'vals': ['EXTERNAL', 'RJ9_USB_WALL'],
+    #    'val_names': ['EXT', 'DEF'],
+    #},
 ]
 
 
@@ -79,18 +80,18 @@ def create_config(config_options):
 
 
 
-def build_release(base, configurations, engines=('solid', 'cadquery')):
+def build_release(base, configurations, engines=('cadquery')): #'solid',
     init = True
     for config in configurations:
         shape_config = copy.deepcopy(base)
         for item in config:
             shape_config[item] = config[item]
-    
+
         for engine in engines:
             shape_config['ENGINE'] = engine
             with open('run_config.json', mode='w') as fid:
                 json.dump(shape_config, fid, indent=4)
-    
+
             if init:
                 import dactyl_manuform as dactyl_manuform
                 dactyl_manuform.run()
@@ -102,7 +103,7 @@ def build_release(base, configurations, engines=('solid', 'cadquery')):
 if __name__ == '__main__':
     configurations = create_config(config_options)
 
-    ENGINES = ['solid', 'cadquery']
+    ENGINES = ['cadquery']
     # ENGINES = ['solid']
 
     build_release(base, configurations, ENGINES)

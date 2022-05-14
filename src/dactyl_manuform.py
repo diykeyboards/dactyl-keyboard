@@ -56,7 +56,7 @@ if save_dir in ['', None, '.']:
     parts_path = path.join(r"..", "src", "parts")
 else:
     save_path = path.join(r"..", "things", save_dir)
-    parts_path = path.join(r"..", r"..", "src", "parts")
+    parts_path = path.join(r"..", "src", "parts")
 
 ###############################################
 # END EXTREMELY UGLY BOOTSTRAP
@@ -91,7 +91,11 @@ if oled_mount_type is not None and oled_mount_type != "NONE":
 if nrows > 5:
     column_style = column_style_gt5
 
+if ncols <= 5 and reduced_outer_cols > 0:
+    reduced_outer_cols = reduced_outer_cols -1
+
 centerrow = nrows - centerrow_offset
+
 
 lastrow = nrows - 1
 if reduced_outer_cols>0 or reduced_inner_cols>0:
@@ -235,7 +239,10 @@ def single_plate(cylinder_segments=100, side="right"):
 
     if plate_file is not None:
         socket = import_file(plate_file)
-        socket = translate(socket, [0, 0, plate_thickness + plate_offset])
+        if ENGINE == r'solid':
+            socket = translate(socket, [ -(hole_keyswitch_width / 2.0 + plate_rim), -(hole_keyswitch_height / 2.0 + plate_rim), -plate_thickness])
+        else:
+            socket = translate(socket, [0, 0, plate_thickness + plate_offset])
         socket = rotate(socket, [0, 0, 180])
         plate = union([plate, socket])
 
@@ -3933,15 +3940,26 @@ def thumb_screw_insert(bottom_radius, top_radius, height, offset=None, side='rig
 
 def screw_insert_all_shapes(bottom_radius, top_radius, height, offset=0, side='right'):
     print('screw_insert_all_shapes()')
-    shape = (
-        translate(screw_insert(0, 0, bottom_radius, top_radius, height, side=side), (0, 0, offset)),
-        translate(screw_insert(0, cornerrow, bottom_radius, top_radius, height, side=side), (0, left_wall_lower_y_offset, offset)),
-        translate(screw_insert(3, lastrow, bottom_radius, top_radius, height, side=side), (0, 0, offset)),
-        translate(screw_insert(3, 0, bottom_radius, top_radius, height, side=side), (0,0, offset)),
-        translate(screw_insert(lastcol, 0, bottom_radius, top_radius, height, side=side), (0, 0, offset)),
-        translate(screw_insert(lastcol, cornerrow, bottom_radius, top_radius, height, side=side), (0, 5, offset)),
-        # translate(screw_insert_thumb(bottom_radius, top_radius, height), (0, 0, offset)),
-    )
+    if ncols > 5:
+        shape = (
+            translate(screw_insert(0, 0, bottom_radius, top_radius, height, side=side), (0, 0, offset)),
+            translate(screw_insert(0, cornerrow, bottom_radius, top_radius, height, side=side), (0, left_wall_lower_y_offset, offset)),
+            translate(screw_insert(3, lastrow, bottom_radius, top_radius, height, side=side), (0, 0, offset)),
+            translate(screw_insert(3, 0, bottom_radius, top_radius, height, side=side), (0,0, offset)),
+            translate(screw_insert(lastcol, 0, bottom_radius, top_radius, height, side=side), (0, 0, offset)),
+            translate(screw_insert(lastcol, cornerrow, bottom_radius, top_radius, height, side=side), (0, 5, offset)),
+            # translate(screw_insert_thumb(bottom_radius, top_radius, height), (0, 0, offset)),
+        )
+    else:
+        shape = (
+            translate(screw_insert(0, 0, bottom_radius, top_radius, height, side=side), (0, 0, offset)),
+            translate(screw_insert(0, cornerrow, bottom_radius, top_radius, height, side=side), (0, left_wall_lower_y_offset, offset)),
+            translate(screw_insert(3, lastrow, bottom_radius, top_radius, height, side=side), (0, 0, offset)),
+            translate(screw_insert(3, 0, bottom_radius, top_radius, height, side=side), (0,0, offset)),
+            #translate(screw_insert(lastcol, 0, bottom_radius, top_radius, height, side=side), (0, 0, offset)),
+            translate(screw_insert(lastcol, cornerrow, bottom_radius, top_radius, height, side=side), (0, 16, offset)),
+            # translate(screw_insert_thumb(bottom_radius, top_radius, height), (0, 0, offset)),
+        )
 
     return shape
 
@@ -4268,13 +4286,20 @@ def baseplate(wedge_angle=None, side='right'):
             hole_shapes=[]
             for hole in holes:
                 loc = hole.Center()
-                hole_shapes.append(
-                    translate(
-                        cone(screw_cbore_diameter/2.0, screw_hole_diameter/2.0, screw_cbore_depth),
-                        #cylinder(screw_cbore_diameter/2.0, screw_cbore_depth),
-                        (loc.x, loc.y, 0)
+                if screw_cbore_style == "COUNTERBORE":
+                    hole_shapes.append(
+                        translate(
+                            cylinder(screw_cbore_diameter/2.0, screw_cbore_depth),
+                            (loc.x, loc.y, 0)
+                        )
                     )
-                )
+                else:
+                    hole_shapes.append(
+                        translate(
+                            cone(screw_cbore_diameter/2.0, screw_hole_diameter/2.0, screw_cbore_depth),
+                            (loc.x, loc.y, 0)
+                        )
+                    )
             shape = difference(shape, hole_shapes)
             shape = translate(shape, (0, 0, -base_rim_thickness))
             shape = union([shape, inner_shape])

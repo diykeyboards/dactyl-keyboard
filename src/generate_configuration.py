@@ -23,13 +23,13 @@ shape_config = {
     ######################
 
     'save_dir': '.',
-    'config_name':  "DMF_5x6HS_OLED",
+    'config_name':  "DMF_4x5HS_OLED",
 
     'show_caps': False,
     'show_pcbs': False, #only runs if caps are shown, easist place to initially inject geometry
 
-    'nrows':  5, #5,  # key rows
-    'ncols':  6, #6,  # key columns
+    'nrows':  4, #5,  # key rows
+    'ncols':  5, #6,  # key columns
 
     'alpha':  pi / 12.0,  # curvature of the columns
     'beta':  pi / 36.0,  # curvature of the rows
@@ -44,6 +44,7 @@ shape_config = {
     'column_style':  "standard",  # options include :standard, :orthographic, and :fixed
     'reduced_inner_cols': 2,  #currently supports 0 or 2 due to thumb cluster attachment
     'reduced_outer_cols': 2,
+
 
 
     'thumb_offsets':  [6, -3, 7],
