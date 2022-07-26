@@ -23,7 +23,7 @@ shape_config = {
     ######################
 
     'save_dir': '.',
-    'config_name':  "DMF_4x5HS_OLED",
+    'config_name':  "DMF_6x6HS_OLED",
 
     'show_caps': False,
     'show_pcbs': False, #only runs if caps are shown, easist place to initially inject geometry
@@ -423,7 +423,7 @@ shape_config = {
     # COMMON DIMENSION
     'screw_hole_diameter': 3,
     # USED FOR CADQUERY ONLY
-    'base_thickness': 2.0, # thickness in the middle of the plate
+    'base_thickness': 3.0, # thickness in the middle of the plate
     'base_offset': 3.0, # Both start flat/flush on the bottom.  This offsets the base up (if positive)
     'base_rim_thickness': 3.0,  # thickness on the outer frame with screws
     'screw_cbore_diameter': 5.8,

@@ -504,7 +504,7 @@
     ],
     "pcb_screw_y_offset": -2,
     "screw_hole_diameter": 3,
-    "base_thickness": 2.0,
+    "base_thickness": 3.0,
     "base_offset": 3.0,
     "base_rim_thickness": 3.0,
     "screw_cbore_diameter": 5.8,

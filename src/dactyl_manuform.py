@@ -3947,8 +3947,8 @@ def screw_insert_all_shapes(bottom_radius, top_radius, height, offset=0, side='r
             translate(screw_insert(3, lastrow, bottom_radius, top_radius, height, side=side), (0, 0, offset)),
             translate(screw_insert(3, 0, bottom_radius, top_radius, height, side=side), (0,0, offset)),
             translate(screw_insert(lastcol, 0, bottom_radius, top_radius, height, side=side), (0, 0, offset)),
-            translate(screw_insert(lastcol, cornerrow, bottom_radius, top_radius, height, side=side), (0, 5, offset)),
-            # translate(screw_insert_thumb(bottom_radius, top_radius, height), (0, 0, offset)),
+            translate(screw_insert(lastcol, cornerrow, bottom_radius, top_radius, height, side=side), (0, 16, offset)),
+            # translate(screw_insert_thumb(bottom, height), (0, 0, offset)),
         )
     else:
         shape = (
