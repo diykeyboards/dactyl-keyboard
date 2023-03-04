@@ -219,7 +219,7 @@ def import_file(fname, convexity=None):
 
 def export_stl(shape, fname):
     print("EXPORTING STL TO {}".format(fname))
-    cq.exporters.export(shape, fname=fname + "_cadquery.stl", exportType="STL")
+    cq.exporters.export(shape, fname=fname + ".stl", exportType="STL")
 
 def export_file(shape, fname):
     print("EXPORTING TO {}".format(fname))

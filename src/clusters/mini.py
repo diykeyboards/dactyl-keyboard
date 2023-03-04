@@ -10,7 +10,7 @@ class MiniCluster(DefaultCluster):
         return "MINI"
 
     def get_config(self):
-        with open(os.path.join("src", "clusters", "json", "MINI.json"), mode='r') as fid:
+        with open(os.path.join(r"..", "src", "clusters", "json", "MINI.json"), mode='r') as fid:
             data = json.load(fid)
 
         superdata = super().get_config()

@@ -147,7 +147,7 @@ def export_file(shape, fname):
 
 def export_stl(shape, fname):
     print("EXPORTING STL TO {}".format(fname))
-    run(["C:\\Program Files\\OpenSCAD\\openscad.com", "-o",  fname + "_openscad.stl", fname + ".scad"])
+    run(["C:\\Program Files\\OpenSCAD\\openscad.com", "-o",  fname + ".stl", fname + ".scad"])
 
 
 def export_dxf(shape, fname):

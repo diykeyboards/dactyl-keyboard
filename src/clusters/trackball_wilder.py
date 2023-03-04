@@ -41,7 +41,7 @@ class TrackballWild(TrackballOrbyl):
 
 
     def get_config(self):
-        with open(os.path.join("src", "clusters", "json", "TRACKBALL_WILD.json"), mode='r') as fid:
+        with open(os.path.join(r"..", "src", "clusters", "json", "TRACKBALL_WILD.json"), mode='r') as fid:
             data = json.load(fid)
 
         superdata = super().get_config()

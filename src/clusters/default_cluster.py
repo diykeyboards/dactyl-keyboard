@@ -23,7 +23,7 @@ class DefaultCluster(object):
 
 
     def get_config(self):
-        with open(os.path.join("src", "clusters", "json", "DEFAULT.json"), mode='r') as fid:
+        with open(os.path.join(r"..", "src", "clusters", "json", "DEFAULT.json"), mode='r') as fid:
             data = json.load(fid)
         for item in data:
             if not hasattr(self, str(item)):

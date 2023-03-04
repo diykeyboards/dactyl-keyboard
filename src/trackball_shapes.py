@@ -141,5 +141,4 @@ def gen_track_socket():
 # main_fin = socket_bearing_fin(10, 7, 5, 10, -25)
 
 # result = difference(main_fin, [cutter_fin])
-export_file(shape=gen_holder(), fname=path.join(".", "things", "gen_holder"))
-
+export_file(shape=gen_holder(), fname=path.join(r"..", "things", "gen_holder"))
