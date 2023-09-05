@@ -1,13 +1,13 @@
 {
     "test": false,
-    "quick_render": false,
+    "quick_render": true,
     "ENGINE": "cadquery",
-    "save_dir": "DM_6x6_HOTSWAP_TB-WILD_NO-LED",
-    "config_name": "DM_6x6_HOTSWAP_TB-WILD_NO-LED",
+    "save_dir": "",
+    "config_name": "",
     "save_name": "",
     "overrides": "",
-    "ncols": 6,
-    "nrows": 6,
+    "ncols": 7,
+    "nrows": 5,
     "alpha": 0.26179916666666664,
     "beta": 0.08726638888888888,
     "centercol": 3,
@@ -20,7 +20,7 @@
         7
     ],
     "full_last_rows": false,
-    "keyboard_z_offset": 11,
+    "keyboard_z_offset": 10,
     "pinky_1_5U": false,
     "first_1_5U_row": 0,
     "last_1_5U_row": 5,
@@ -65,7 +65,7 @@
         17.5
     ],
     "fixed_tenting": 0.0,
-    "plate_style": "HS-NOTCH",
+    "plate_style": "NOTCH",
     "plate_thickness": 5,
     "plate_rim": 2.5,
     "hole_keyswitch_height": 14.0,
@@ -81,7 +81,7 @@
     "plate_file_name": "diyk_hot_swap_plate_v2",
     "plate_offset": -1,
     "plate_thickness_hotswap": 7,
-    "thumb_style": "TRACKBALL_WILD",
+    "thumb_style": "TRACKBALL_BTU",
     "default_1U_cluster": true,
     "minidox_Usize": 1.6,
     "thumb_plate_tr_rotation": 0.0,
@@ -92,8 +92,8 @@
     "thumb_plate_bl_rotation": 0.0,
     "trackball_modular": false,
     "trackball_Usize": 1.5,
-    "ball_side": "both",
-    "other_thumb": "MINI",
+    "ball_side": "right",
+    "other_thumb": "",
     "ball_diameter": 34.0,
     "ball_wall_thickness": 3,
     "ball_gap": 1.0,
@@ -117,6 +117,16 @@
         0
     ],
     "tb_sensor_rotation_offset": [
+        0,
+        0,
+        0
+    ],
+    "tb_cutter_translation_offset": [
+        0,
+        0,
+        0
+    ],
+    "tb_cutter_rotation_offset": [
         0,
         0,
         0
@@ -150,11 +160,21 @@
         0
     ],
     "tb_btu_socket_translation_offset": [
-        0,
-        -1,
-        -20
+        3.5,
+        10,
+        -7
     ],
     "tb_btu_socket_rotation_offset": [
+        0,
+        0,
+        -25
+    ],
+    "tb_btu_cutter_translation_offset": [
+        -1,
+        0,
+        0
+    ],
+    "tb_btu_cutter_rotation_offset": [
         0,
         0,
         0
@@ -340,7 +360,7 @@
     "blackpill_holder_width": 32.0,
     "blackpill_holder_xoffset": -6.5,
     "screw_hole_diameter": 3,
-    "base_thickness": 4.0,
+    "base_thickness": 3,
     "base_offset": 3,
     "base_rim_thickness": 3.0,
     "screw_cbore_diameter": 5.8,
@@ -437,13 +457,13 @@
             0
         ],
         [
-            0,
+            -1,
             -12,
             0
         ],
         [
-            0,
-            -8.5,
+            -1.5,
+            12,
             0
         ],
         [

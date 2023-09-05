@@ -18,7 +18,7 @@ shape_config = {
     'test':  False, # If true, test models are rendered.
 
     # Enable Quick Rendering
-    'quick_render':  False, # If true, only right main case is rendered.
+    'quick_render':  True, # If true, only right main case is rendered.
 
     # Choose an engine for model generation.
     # 'ENGINE': 'solid',  # Solid Python / OpenSCAD
@@ -34,8 +34,8 @@ shape_config = {
     'save_name': '', # Specify the output file name for your models.
     'overrides': '', # Specify a file containing config overrides.
 
-    'ncols':  6, #6,  # Number of key columns
-    'nrows':  6, #5,  # Number of key rows
+    'ncols':  7, #6,  # Number of key columns
+    'nrows':  5, #5,  # Number of key rows
 
     'alpha':  pi / 12.0,  # Curvature of the columns
     'beta':  pi / 36.0,  # Curvature of the rows
@@ -48,12 +48,11 @@ shape_config = {
     # "STANDARD" = Standard keyboard layout, with vertical offset between columns
     # "ORTHOGRAPHIC"
     # "FIXED"
-    'column_style':  "STANDARD",  # options include :standard, :orthographic, and :fixed
+    'column_style':  'STANDARD',  # options include :standard, :orthographic, and :fixed
 
     'thumb_offsets':  [6, -3, 7],
     'full_last_rows': False, # If True, will generate the bottom key(s) in the outside columns.
-    'keyboard_z_offset': 11,  # Controls overall height
-
+    'keyboard_z_offset': 10,  # Controls overall height
 
     ##############################
     # Experimental Parameters
@@ -104,7 +103,7 @@ shape_config = {
     # Versions with 'HS-' feature integrated Kailh hotswap socket mounts.
     # Tweak CLIP_THICKNESS/CLIP_UNDERCUT to perfect snap-fit on 'UNDERCUT', 'HS-UNDERCUT', 'NOTCH' and 'HS-NOTCH'
 
-    'plate_style': 'HS-NOTCH', # 'NOTCH' and 'HS-NOTCH' are recommended.
+    'plate_style': 'NOTCH', # 'NOTCH' and 'HS-NOTCH' are recommended.
     'plate_thickness': 5, # Thickness of the switch plate. 5mm allows flush-mount of Amoeba PCBs.
     'plate_rim': 2 + 0.5, # Thickness of rim around switch opening.
 
@@ -132,9 +131,9 @@ shape_config = {
     ##############################
     # Thumb Parameters
     ##############################
-    # 'DEFAULT' 6-key, 'MINI' 5-key, 'CARBONFET' 6-key, 'MINIDOX' 3-key,
+    # 'DEFAULT' 6-key, 'MINI' 5-key, 'CARBONFET' 6-key, 'MINIDOX' 3-key, 'VELVET' 2-key,
     #'TRACKBALL_ORBYL', 'TRACKBALL_CJ', 'TRACKBALL_WILD', 'TRACKBALL_BTU'
-    'thumb_style': 'DEFAULT',
+    'thumb_style': 'TRACKBALL_BTU',
     'default_1U_cluster': True, # only used with default, makes top right thumb cluster key 1U
     # Thumb key size.  May need slight oversizing, check w/ caps.  Additional spacing will be automatically added for larger keys.
     'minidox_Usize': 1.6,
@@ -156,7 +155,7 @@ shape_config = {
 
     'trackball_Usize': 1.5,  # size for inner key near trackball
     'ball_side': 'right', #'left', 'right', or 'both'
-    'other_thumb': 'MINI', # Cluster used for second thumb except if ball_side == 'both'
+    'other_thumb': '', # Cluster used for second thumb except if ball_side == 'both'
     'ball_diameter': 34.0,
     'ball_wall_thickness': 3,  # should not be changed unless the import models are changed.
     'ball_gap': 1.0,
@@ -168,6 +167,8 @@ shape_config = {
     'tb_socket_rotation_offset':    (0, 0, 0),  # applied to the socket and sensor, large values will cause web/wall issues.
     'tb_sensor_translation_offset': (0, 0, 0),  #deviation from socket offsets, for fixing generated geometry issues
     'tb_sensor_rotation_offset':    (0, 0, 0),  #deviation from socket offsets, for changing the sensor roll orientation
+    'tb_cutter_translation_offset': (0, 0, 0),  # Applied to the cutting model (cylinder) used to cut socket hole in cluster, large values will cause web/wall issues.
+    'tb_cutter_rotation_offset':    (0, 0, 0),  # Applied to the cutting model (cylinder) used to cut socket hole in cluster, large values will cause web/wall issues.
     'get_extras': False, # Generate support posts under trackball socket.
 
 
@@ -192,8 +193,10 @@ shape_config = {
     ## Trackball BTU Thumb Cluster
     ###################################
     # Large values on the options below will cause web/wall issues.
-    'tb_btu_socket_translation_offset': (0, -1, -20),  # Translation offsets applied to the BTU socket and sensor.
-    'tb_btu_socket_rotation_offset':    (0, 0, 0),  # Rotation offsets applied to the BTU socket and sensor.
+    'tb_btu_socket_translation_offset': (3.5, 10, -7),  # Translation offsets applied to the BTU socket and sensor.
+    'tb_btu_socket_rotation_offset':    (0, 0, -25),  # Rotation offsets applied to the BTU socket and sensor.
+    'tb_btu_cutter_translation_offset': (-1, 0, 0),  # Applied to the cutting model (cylinder) used to cut socket hole in cluster, large values will cause web/wall issues.
+    'tb_btu_cutter_rotation_offset':    (0, 0, 0),  # Applied to the cutting model (cylinder) used to cut socket hole in cluster, large values will cause web/wall issues.
 
 
     ###################################
@@ -372,10 +375,9 @@ shape_config = {
     ###################################
     'screw_hole_diameter': 3,
     # USED FOR CADQUERY ONLY
-    'base_thickness': 3.0, # thickness in the middle of the plate
+    'base_thickness': 3, # thickness in the middle of the plate
     'base_offset': 3, # Both start flat/flush on the bottom.  This offsets the base up (if positive)
     'base_rim_thickness': 3.0,  # thickness on the outer frame with screws
-    'base_thickness': 4.0, # thickness in the middle of the plate
     'screw_cbore_diameter': 5.8,
     'screw_cbore_depth': 2.0, # Depth of counterbore. Must not be equal or greater than 'base_rim_thickness'.
     'screw_cbore_style':  'COUNTERSINK',# 'COUNTERSINK' (conical) or 'COUNTERBORE' (cylindrical)
@@ -438,8 +440,8 @@ shape_config = {
         [0, -2, 0],   # First Column Bottom
         [0, 0, 0],     # Center Column Top
         [0, -2, 0],    # Center Column Bottom
-        [0, -12, 0],     # Last Column Top
-        [0, -8.5, 0],     # Last Column Bottom
+        [-1, -12, 0],     # Last Column Top
+        [-1.5, 12, 0],     # Last Column Bottom
         [0, 0, 0],     # Thumb Cluster
     ],
 }
