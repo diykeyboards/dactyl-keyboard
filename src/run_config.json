@@ -84,6 +84,119 @@
     "thumb_style": "TRACKBALL_BTU",
     "default_1U_cluster": true,
     "minidox_Usize": 1.6,
+    "mini_index_key": true,
+    "default_thumb_screw_xy_locations": [
+        [
+            -21,
+            -58
+        ]
+    ],
+    "default_separable_thumb_screw_xy_locations": [
+        [
+            -21,
+            -58
+        ]
+    ],
+    "mini_thumb_screw_xy_locations": [
+        [
+            -29,
+            -52
+        ]
+    ],
+    "mini_separable_thumb_screw_xy_locations": [
+        [
+            -29,
+            -52
+        ],
+        [
+            -62,
+            10
+        ],
+        [
+            12,
+            -25
+        ]
+    ],
+    "minidox_thumb_screw_xy_locations": [
+        [
+            -37,
+            -34
+        ]
+    ],
+    "minidox_separable_thumb_screw_xy_locations": [
+        [
+            -37,
+            -34
+        ],
+        [
+            -62,
+            12
+        ],
+        [
+            10,
+            -25
+        ]
+    ],
+    "carbonfet_thumb_screw_xy_locations": [
+        [
+            -48,
+            -37
+        ]
+    ],
+    "carbonfet_separable_thumb_screw_xy_locations": [
+        [
+            -48,
+            -37
+        ],
+        [
+            -52,
+            10
+        ],
+        [
+            12,
+            -35
+        ]
+    ],
+    "orbyl_thumb_screw_xy_locations": [
+        [
+            -53,
+            -68
+        ]
+    ],
+    "orbyl_separable_thumb_screw_xy_locations": [
+        [
+            -53,
+            -68
+        ],
+        [
+            -66,
+            8
+        ],
+        [
+            10,
+            -40
+        ]
+    ],
+    "tbcj_thumb_screw_xy_locations": [
+        [
+            -40,
+            -75
+        ]
+    ],
+    "tbcj_separable_thumb_screw_xy_locations": [
+        [
+            -40,
+            -75
+        ],
+        [
+            -63,
+            10
+        ],
+        [
+            15,
+            -40
+        ]
+    ],
     "thumb_plate_tr_rotation": 0.0,
     "thumb_plate_tl_rotation": 0.0,
     "thumb_plate_mr_rotation": 0.0,
@@ -146,6 +259,7 @@
     ],
     "tbiw_left_wall_x_offset_override": 50.0,
     "tbiw_left_wall_z_offset_override": 0.0,
+    "tbiw_left_wall_lower_x_offset": 0.0,
     "tbiw_left_wall_lower_y_offset": 0.0,
     "tbiw_left_wall_lower_z_offset": 0.0,
     "tbiw_oled_center_row": 0.75,
@@ -180,14 +294,16 @@
         0
     ],
     "tbjs_key_diameter": 70,
+    "tbjs_Uwidth": 1.2,
+    "tbjs_Uheight": 1.2,
     "tbjs_translation_offset": [
         0,
         0,
-        10
+        2
     ],
     "tbjs_rotation_offset": [
         0,
-        0,
+        -8,
         0
     ],
     "tbjs_key_translation_offsets": [
@@ -382,6 +498,17 @@
     "plate_holes_height": 14.3,
     "plate_holes_diameter": 1.7,
     "plate_holes_depth": 20.0,
+    "plate_pcb_clear": false,
+    "plate_pcb_size": [
+        18.5,
+        18.5,
+        5
+    ],
+    "plate_pcb_offset": [
+        0,
+        0,
+        0
+    ],
     "pcb_width": 18.0,
     "pcb_height": 18.0,
     "pcb_thickness": 1.5,

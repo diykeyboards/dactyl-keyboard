@@ -54,6 +54,16 @@ shape_config = {
     'full_last_rows': False, # If True, will generate the bottom key(s) in the outside columns.
     'keyboard_z_offset': 10,  # Controls overall height
 
+
+    'extra_width': 2.5,  # extra space between the base of keys# original= 2
+    'extra_height': 0.8,  # original= 0.5
+
+
+    'web_thickness': 4.0 + 1.1,
+    'post_size': 0.1,
+    # post_adj':  post_size / 2
+    'post_adj': 0,
+
     ##############################
     # Experimental Parameters
     ##############################
@@ -138,12 +148,35 @@ shape_config = {
     # Thumb key size.  May need slight oversizing, check w/ caps.  Additional spacing will be automatically added for larger keys.
     'minidox_Usize': 1.6,
     # Thumb plate rotations, anything other than 90 degree increments WILL NOT WORK.
+
+    'mini_index_key': True,
+
+    # Screw locations and extra screw locations for separable thumb, all from thumb origin
+    # Pulled out of hardcoding as drastic changes to the geometry may require fixes to the screw mounts.
+    # First screw in separable should be similar to the standard location as it will receive the same modifiers.
+    'default_thumb_screw_xy_locations': [[-21, -58]],
+    'default_separable_thumb_screw_xy_locations': [[-21, -58]],
+    'mini_thumb_screw_xy_locations': [[-29, -52]],
+    'mini_separable_thumb_screw_xy_locations': [[-29, -52], [-62, 10], [12, -25]],
+    'minidox_thumb_screw_xy_locations': [[-37, -34]],
+    'minidox_separable_thumb_screw_xy_locations': [[-37, -34], [-62, 12], [10, -25]],
+    'carbonfet_thumb_screw_xy_locations': [[-48, -37]],
+    'carbonfet_separable_thumb_screw_xy_locations': [[-48, -37], [-52, 10], [12, -35]],
+    'orbyl_thumb_screw_xy_locations': [[-53, -68]],
+    'orbyl_separable_thumb_screw_xy_locations': [[-53, -68], [-66, 8], [10, -40]],
+    'tbcj_thumb_screw_xy_locations': [[-40, -75]],
+    'tbcj_separable_thumb_screw_xy_locations': [[-40, -75], [-63, 10], [15, -40]],
+
     'thumb_plate_tr_rotation': 0.0,  # Top right plate rotation tweaks as thumb cluster is crowded for hot swap, etc.
     'thumb_plate_tl_rotation': 0.0,  # Top left plate rotation tweaks as thumb cluster is crowded for hot swap, etc.
     'thumb_plate_mr_rotation': 0.0,  # Mid right plate rotation tweaks as thumb cluster is crowded for hot swap, etc.
     'thumb_plate_ml_rotation': 0.0,  # Mid left plate rotation tweaks as thumb cluster is crowded for hot swap, etc.
     'thumb_plate_br_rotation': 0.0,  # Bottom right plate rotation tweaks as thumb cluster is crowded for hot swap, etc.
     'thumb_plate_bl_rotation': 0.0,  # Bottom right plate rotation tweaks as thumb cluster is crowded for hot swap, etc.
+    ##############################
+    # EXPERIMENTAL
+    'separable_thumb': False,  #creates a separable thumb section with additional screws to hold it down.  Only attached at base.
+    ##############################
 
 
     ###################################
@@ -181,6 +214,7 @@ shape_config = {
     'tbiw_rotation_offset': (0.0, 0.0, 0.0),
     'tbiw_left_wall_x_offset_override': 50.0,
     'tbiw_left_wall_z_offset_override': 0.0,
+    'tbiw_left_wall_lower_x_offset': 0.0,
     'tbiw_left_wall_lower_y_offset': 0.0,
     'tbiw_left_wall_lower_z_offset': 0.0,
 
@@ -203,10 +237,15 @@ shape_config = {
     ## Trackball ORBYL Thumb Cluster
     ###################################
     'tbjs_key_diameter': 70,
+    'tbjs_Uwidth': 1.2,  # size for inner key near trackball
+    'tbjs_Uheight': 1.2,  # size for inner key near trackball
+
     # Offsets are per key and are applied before rotating into place around the ball
     # X and Y act like Tangential and Radial around the ball
-    'tbjs_translation_offset': (0, 0, 10),  # applied to the whole assy
-    'tbjs_rotation_offset': (0, 0, 0),  # applied to the whole assy
+    # 'tbjs_translation_offset': (0, 0, 10),  # applied to the whole assy
+    # 'tbjs_rotation_offset': (0, 10, 0),  # applied to the whole assy
+    'tbjs_translation_offset': (0, 0, 2),  # applied to the whole assy
+    'tbjs_rotation_offset': (0, -8, 0),  # applied to the whole assy
     'tbjs_key_translation_offsets': [
         (0.0, 0.0, -3.0-5),
         (0.0, 0.0, -3.0-5),
@@ -326,6 +365,16 @@ shape_config = {
     'screw_insert_bottom_radius': 4.8 / 2,
     'screw_insert_top_radius': 4.6 / 2,
 
+    'screw_insert_height': 4.5,
+
+    'screw_insert_bottom_radius': 4.8 / 2,  #Designed for inserts
+    'screw_insert_top_radius': 4.6 / 2,  #Designed for inserts
+
+    # 'screw_insert_bottom_radius': 2.5 / 2,  # Designed for self tapping
+    # 'screw_insert_top_radius': 2.5 / 2,  # Designed for self tapping
+
+    'screw_insert_outer_radius': 4.25,  # Common to keep interface to base
+
     # Does anyone even use these?  I think they just get in the way.
     'wire_post_height': 7,
     'wire_post_overhang': 3.5,
@@ -368,6 +417,26 @@ shape_config = {
     ## To use, set
     "blackpill_holder_width": 32.0,
     "blackpill_holder_xoffset": -6.5,
+
+
+    ###################################
+    ## PCB Screw Mount               ##
+    ###################################
+    "pcb_mount_ref_offset": [0, -5, 0],
+    "pcb_holder_size": [34.6, 7, 4],
+    "pcb_holder_offset": [8.9, 0, 0],
+
+    "pcb_usb_hole_size": [7.5, 10.0, 4],
+    "pcb_usb_hole_offset": [15, 0, 4.5],
+
+    "wall_thinner_size": [34, 7, 10],
+
+    "trrs_hole_size": [3, 20],
+    "trrs_offset": [0, 0, 1.5],
+
+    "pcb_screw_hole_size": [.5, 10],
+    "pcb_screw_x_offsets": [- 5.5, 7.75, 22], # for the screw positions off of reference
+    "pcb_screw_y_offset": -2,
 
 
     ###################################
