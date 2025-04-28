@@ -6,8 +6,10 @@
 
 .lein-*
 *.3mf
+*.code-workspace
 *.gcode
 *.scad
+*.SLDPRT
 *.dxf
 /target
 .idea/
