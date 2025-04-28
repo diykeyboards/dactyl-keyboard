@@ -1,16 +1,16 @@
 {
     "test": false,
-    "quick_render": true,
+    "quick_render": false,
     "ENGINE": "cadquery",
     "save_dir": "",
     "config_name": "",
     "save_name": "",
     "overrides": "",
-    "ncols": 7,
-    "nrows": 5,
+    "ncols": 6,
+    "nrows": 4,
     "alpha": 0.26179916666666664,
     "beta": 0.08726638888888888,
-    "centercol": 3,
+    "centercol": 6,
     "centerrow_offset": 3,
     "tenting_angle": 0.26179916666666664,
     "column_style": "STANDARD",
@@ -21,11 +21,14 @@
     ],
     "full_last_rows": false,
     "keyboard_z_offset": 10,
+    "extra_width": 2.7,
+    "extra_height": 0,
+    "web_thickness": 5.1,
+    "post_size": 0.1,
+    "post_adj": 0,
     "pinky_1_5U": false,
     "first_1_5U_row": 0,
     "last_1_5U_row": 5,
-    "extra_width": 2.7,
-    "extra_height": 0,
     "wall_z_offset": 15,
     "wall_x_offset": 5,
     "wall_y_offset": 6,
@@ -65,7 +68,7 @@
         17.5
     ],
     "fixed_tenting": 0.0,
-    "plate_style": "NOTCH",
+    "plate_style": "HS-NOTCH",
     "plate_thickness": 5,
     "plate_rim": 2.5,
     "hole_keyswitch_height": 14.0,
@@ -81,7 +84,7 @@
     "plate_file_name": "diyk_hot_swap_plate_v2",
     "plate_offset": -1,
     "plate_thickness_hotswap": 7,
-    "thumb_style": "TRACKBALL_BTU",
+    "thumb_style": "MINI",
     "default_1U_cluster": true,
     "minidox_Usize": 1.6,
     "mini_index_key": true,
@@ -203,6 +206,7 @@
     "thumb_plate_ml_rotation": 0.0,
     "thumb_plate_br_rotation": 0.0,
     "thumb_plate_bl_rotation": 0.0,
+    "separable_thumb": false,
     "trackball_modular": false,
     "trackball_Usize": 1.5,
     "ball_side": "right",
@@ -454,12 +458,11 @@
             "oled_clip_z_gap": 0.2
         }
     },
-    "post_size": 0.1,
-    "post_adj": 0,
     "screws_offset": "INSIDE",
     "screw_insert_height": 4.5,
     "screw_insert_bottom_radius": 2.4,
     "screw_insert_top_radius": 2.3,
+    "screw_insert_outer_radius": 4.25,
     "wire_post_height": 7,
     "wire_post_overhang": 3.5,
     "wire_post_diameter": 2.6,
@@ -475,6 +478,55 @@
     "external_holder_yoffset": -4.5,
     "blackpill_holder_width": 32.0,
     "blackpill_holder_xoffset": -6.5,
+    "pcb_mount_ref_offset": [
+        0,
+        -5,
+        0
+    ],
+    "pcb_holder_size": [
+        34.6,
+        7,
+        4
+    ],
+    "pcb_holder_offset": [
+        8.9,
+        0,
+        0
+    ],
+    "pcb_usb_hole_size": [
+        7.5,
+        10.0,
+        4
+    ],
+    "pcb_usb_hole_offset": [
+        15,
+        0,
+        4.5
+    ],
+    "wall_thinner_size": [
+        34,
+        7,
+        10
+    ],
+    "trrs_hole_size": [
+        3,
+        20
+    ],
+    "trrs_offset": [
+        0,
+        0,
+        1.5
+    ],
+    "pcb_screw_hole_size": [
+        0.5,
+        10
+    ],
+    "pcb_screw_x_offsets": [
+        -5.5,
+        7.75,
+        22
+    ],
+    "pcb_screw_y_offset": -2,
     "screw_hole_diameter": 3,
     "base_thickness": 3,
     "base_offset": 3,
@@ -498,17 +550,6 @@
     "plate_holes_height": 14.3,
     "plate_holes_diameter": 1.7,
     "plate_holes_depth": 20.0,
-    "plate_pcb_clear": false,
-    "plate_pcb_size": [
-        18.5,
-        18.5,
-        5
-    ],
-    "plate_pcb_offset": [
-        0,
-        0,
-        0
-    ],
     "pcb_width": 18.0,
     "pcb_height": 18.0,
     "pcb_thickness": 1.5,

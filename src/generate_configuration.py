@@ -18,7 +18,7 @@ shape_config = {
     'test':  False, # If true, test models are rendered.
 
     # Enable Quick Rendering
-    'quick_render':  True, # If true, only right main case is rendered.
+    'quick_render':  False, # If true, only right main case is rendered.
 
     # Choose an engine for model generation.
     # 'ENGINE': 'solid',  # Solid Python / OpenSCAD
@@ -34,13 +34,13 @@ shape_config = {
     'save_name': '', # Specify the output file name for your models.
     'overrides': '', # Specify a file containing config overrides.
 
-    'ncols':  7, #6,  # Number of key columns
-    'nrows':  5, #5,  # Number of key rows
+    'ncols':  6, #6,  # Number of key columns
+    'nrows':  4, #5,  # Number of key rows
 
     'alpha':  pi / 12.0,  # Curvature of the columns
     'beta':  pi / 36.0,  # Curvature of the rows
 
-    'centercol':  3,  # Controls left_right tilt/tenting. (Higher number is more tenting.)
+    'centercol':  6,  # Controls left_right tilt/tenting. (Higher number is more tenting.)
     'centerrow_offset':  3,  # Controls front/back tilt. (Higher number is more tilt.)
     'tenting_angle':  pi / 12.0,  # More precise tenting control.
 
@@ -56,7 +56,7 @@ shape_config = {
 
 
     'extra_width': 2.5,  # extra space between the base of keys# original= 2
-    'extra_height': 0.8,  # original= 0.5
+    'extra_height': 0.5,  # original= 0.5
 
 
     'web_thickness': 4.0 + 1.1,
@@ -113,7 +113,7 @@ shape_config = {
     # Versions with 'HS-' feature integrated Kailh hotswap socket mounts.
     # Tweak CLIP_THICKNESS/CLIP_UNDERCUT to perfect snap-fit on 'UNDERCUT', 'HS-UNDERCUT', 'NOTCH' and 'HS-NOTCH'
 
-    'plate_style': 'NOTCH', # 'NOTCH' and 'HS-NOTCH' are recommended.
+    'plate_style': 'HS-NOTCH', # 'NOTCH' and 'HS-NOTCH' are recommended.
     'plate_thickness': 5, # Thickness of the switch plate. 5mm allows flush-mount of Amoeba PCBs.
     'plate_rim': 2 + 0.5, # Thickness of rim around switch opening.
 
@@ -143,7 +143,7 @@ shape_config = {
     ##############################
     # 'DEFAULT' 6-key, 'MINI' 5-key, 'CARBONFET' 6-key, 'MINIDOX' 3-key, 'VELVET' 2-key,
     #'TRACKBALL_ORBYL', 'TRACKBALL_CJ', 'TRACKBALL_WILD', 'TRACKBALL_BTU'
-    'thumb_style': 'TRACKBALL_BTU',
+    'thumb_style': 'MINI',
     'default_1U_cluster': True, # only used with default, makes top right thumb cluster key 1U
     # Thumb key size.  May need slight oversizing, check w/ caps.  Additional spacing will be automatically added for larger keys.
     'minidox_Usize': 1.6,
