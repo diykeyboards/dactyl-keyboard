@@ -192,7 +192,7 @@ fixed_z:
   - 14.5
   - 17.5
 fixed_tenting: 0
-plate_style: HS_NOTCH
+plate_style: HS-NOTCH
 hole_keyswitch_height: 14
 hole_keyswitch_width: 14
 nub_keyswitch_height: 14.4

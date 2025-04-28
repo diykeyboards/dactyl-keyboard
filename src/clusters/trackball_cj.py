@@ -8,13 +8,13 @@ class TrackballCJ(TrackballOrbyl):
     tbcj_inner_diameter = 42
     tbcj_thickness = 2
     tbcj_outer_diameter = 53
-    
+
     @staticmethod
     def name():
         return "TRACKBALL_CJ"
 
     def get_config(self):
-        with open(os.path.join("src", "clusters", "json", "TRACKBALL_CJ.json"), mode='r') as fid:
+        with open(os.path.join(r"..", "src", "clusters", "json", "TRACKBALL_CJ.json"), mode='r') as fid:
             data = json.load(fid)
 
         superdata = super().get_config()

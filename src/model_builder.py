@@ -6,39 +6,41 @@ from generate_configuration import *
 
 base = shape_config
 
+# The below array tells the generator what model variants to iterate.
+# Keep in mind that each variation is multiplied by the others. It can get massive pretty quickly.
 config_options = [
     {
-        'name': '{}', 'vars': ['ball_side'], # set ball side to both, other half can come from other renders
+        'name': '{}', 'vars': ['ball_side'], # Set ball side to both, as other half can come from other renders.
         'vals': ['both'],
         'val_names': ['']
     },
     {
         'name': '{}x{}', 'vars': ['nrows', 'ncols'],
-        'vals':[(4, 5), (5, 6)],
-        # 'vals': [(4, 5), (4, 6), (5, 6), (6, 6)],
+        'vals': [(4, 5), (4, 6), (5, 6), (5, 7), (6, 6), (6, 7)], # Row/Column layouts to iterate.
     },
     {
-        'name': '{}PLT', 'vars': ['plate_style'],
-        'vals': ['NOTCH', 'HS_NOTCH'],
-        # 'vals': ['NUB', 'NOTCH', 'HS_NUB', 'HS_NOTCH'],
+        'name': '{}', 'vars': ['plate_style'],
+        'vals': ['NOTCH', 'HS-NOTCH'], # Plate styles to be iterated.
+        'val_names': ['MX-NOTCH', 'HOTSWAP'],
+        # 'vals': ['HOLE','NUB', 'HS-NUB', 'HS-NOTCH', 'HS-UNDERCUT', 'NOTCH', 'HS-NOTCH'],
     },
     {
-        'name': '{}TMB', 'vars': ['thumb_style'],
-        'vals': ['DEFAULT', 'MINIDOX', 'TRACKBALL_ORBISSYL'],
-        'val_names': ['DEF', 'MDOX', 'ORBY']
-        # 'vals': ['DEFAULT', 'MINI', 'CARBONFET', 'MINIDOX'],
-        # 'val_names': ['DEF', 'MINI', 'CF', 'MDOX']
+        'name': '{}', 'vars': ['thumb_style'],
+        'vals': ['DEFAULT', 'MINI', 'CARBONFET', 'MINIDOX', 'TRACKBALL_WILD', 'TRACKBALL_BTU'], # Thumb styles to be iterated.
+        'val_names': ['DEFAULT', 'MINI', 'CARBONFET', 'MINIDOX', 'TB-WILD', 'TB-BTU'] # Corresponding names of styles output in filenames.
+        # 'DEFAULT' 6-key, 'MINI' 5-key, 'CARBONFET' 6-key, 'MINIDOX' 3-key,
+        #'TRACKBALL_ORBYL', 'TRACKBALL_CJ', 'TRACKBALL_WILD', 'TRACKBALL_BTU'
     },
     {
         'name': '{}', 'vars': ['oled_mount_type'],
-        'vals': ['CLIP', 'NONE'],
-        'val_names': ['OLED', 'NOLED']
+        'vals': ['CLIP', 'NONE'], # OLED screen mount styles to be iterated.
+        'val_names': ['OLED', 'NO-LED'] # Corresponding names of styles output in filenames.
     },
-    {
-        'name': '{}CTRL', 'vars': ['controller_mount_type'],
-        'vals': ['EXTERNAL', 'RJ9_USB_WALL'],
-        'val_names': ['EXT', 'DEF'],
-    },
+    #{
+    #    'name': '{}CTRL', 'vars': ['controller_mount_type'],
+    #    'vals': ['EXTERNAL', 'RJ9_USB_WALL'], # Controller mount styles to be iterated.
+    #    'val_names': ['EXT', 'DEF'],  # Corresponding names of styles output in filenames.
+    #},
 ]
 
 
@@ -79,30 +81,29 @@ def create_config(config_options):
 
 
 
-def build_release(base, configurations, engines=('solid', 'cadquery')):
+def build_release(base, configurations, engines=('cadquery')): # Choose generation engines: 'solid','cadquery'
     init = True
     for config in configurations:
         shape_config = copy.deepcopy(base)
         for item in config:
             shape_config[item] = config[item]
-    
+
         for engine in engines:
             shape_config['ENGINE'] = engine
             with open('run_config.json', mode='w') as fid:
                 json.dump(shape_config, fid, indent=4)
-    
+
             if init:
                 import dactyl_manuform as dactyl_manuform
-                dactyl_manuform.run()
-                init = False
+                dactyl_manuform.make_dactyl()
+                #init = False # This should be enabled but causes Docker error.
             else:
                 importlib.reload(dactyl_manuform)
-                dactyl_manuform.run()
+                dactyl_manuform.make_dactyl()
 
 if __name__ == '__main__':
     configurations = create_config(config_options)
 
-    ENGINES = ['solid', 'cadquery']
-    # ENGINES = ['solid']
+    ENGINES = ['cadquery'] # Choose generation engines: 'solid','cadquery'
 
     build_release(base, configurations, ENGINES)
